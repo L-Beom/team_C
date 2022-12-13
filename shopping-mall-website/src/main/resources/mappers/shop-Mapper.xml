@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="shopMapper">
+
+	<!-- 상품 목록 -->
+	<select id="goodsViewList"
+		resultType="com.spring.myapp.domain.GoodsVO">
+	<![CDATA[
+	SELECT goodsCode, 
+	 	goodsName, 
+	 	secondClassification, 
+	 	brand, 
+	 	goodsPrice,
+     	goodsStock,
+     	goodsDescription,
+     	goodsImage,
+     	goodsThumbnailImage,
+     	goodsAddedTime
+	FROM goods
+        WHERE firstClassification = #{firstClassification}
+	]]>
+	</select>
+
+	<select id="goodsViewOne"
+		resultType="com.spring.myapp.domain.GoodsVO">
+	<![CDATA[
+	SELECT goodsCode,
+	 	firstClassification, 
+	 	secondClassification, 
+	 	brand, 
+	 	goodsPrice,
+     	goodsStock,
+     	goodsDescription,
+     	goodsImage,
+     	goodsThumbnailImage,
+     	goodsAddedTime
+	FROM goods
+	WHERE goodsName = #{goodsName}
+	]]>
+	</select>
+
+
+	<select id="goodsViewByGoodsCode"
+		resultType="com.spring.myapp.domain.GoodsVO">
+	<![CDATA[
+	SELECT goodsCode,
+	 	firstClassification, 
+	 	secondClassification, 
+	 	brand, 
+	 	goodsPrice,
+     	goodsStock,
+     	goodsDescription,
+     	goodsImage,
+     	goodsThumbnailImage,
+     	goodsAddedTime
+	FROM goods
+	WHERE goodsCode = #{goodsCode}
+	]]>
+	</select>
+
+	<!-- 상품 소감(댓글) 작성 -->
+	<insert id="registerReply">
+	<![CDATA[
+		INSERT INTO goods_reply (goodsCode,
+		goodsName,
+		replyNumber,
+		userid,
+		replyData,
+		replyRating)
+			VALUES (#{goodsCode},
+		#{goodsName},
+		#{replyNumber},
+		#{userid},
+		#{replyData},
+		#{replyRating})
+	]]>
+	</insert>
+	<!-- 상품 소감(댓글) 리스트 -->
+	<select id="replyList"
+		resultType="com.spring.myapp.domain.GoodsReplyListVO">
+		<![CDATA[
+		SELECT r.goodsCode,
+		r.goodsName,r.replyNumber,r.userid,r.replyData,
+		r.replyDate, r.replyRating, m.username
+		FROM goods_reply r INNER JOIN member m
+		ON m.email = r.userid
+		WHERE goodsName = #{goodsName}
+		]]>
+	</select>
+
+	<!-- 상품 소감(댓글) 삭제 -->
+	<delete id="deleteReply">
+	<![CDATA[
+		DELETE FROM goods_reply
+		WHERE replyNumber = #{replyNumber}
+	]]>
+	</delete>
+
+	<!-- 아이디 체크 -->
+	<select id="replyUserIdCheck" resultType="String">
+	<![CDATA[
+		SELECT userid
+		from
+		goods_reply
+		    where replyNumber = #{replyNumber}
+	]]>
+	</select>
+
+	<!-- 댓글 아이디로 찾기 -->
+	<select id="replySelect"
+		resultType="com.spring.myapp.domain.GoodsReplyVO">
+	<![CDATA[
+		SELECT goodsCode,
+		goodsName,
+		replyNumber,
+		userid,
+		replyData,
+		replyRating,
+		replyDate
+		FROM goods_reply WHERE replyNumber = #{replyNumber}
+	]]>
+	</select>
+
+	<!-- 댓글 수정 -->
+	<update id="replyModify">
+	<![CDATA[
+	UPDATE goods_reply 
+	 	SET replyData = #{replyData}, 
+	 		replyRating = #{replyRating}
+	WHERE replyNumber = #{replyNumber}
+	]]>
+	</update>
+
+	<!-- 카트 담기 -->
+	<insert id="addCart">
+	<![CDATA[
+		INSERT INTO cart (userid, goodsCode, goodsName, cartStock) VALUES (#{userid}, #{goodsCode}, #{goodsName}, #{cartStock})
+	]]>
+	</insert>
+
+	<!-- 특정 상품의 댓글 갯수랑 좋아요 평균 찾기 -->
+	<select id="replyCount"
+		resultType="com.spring.myapp.domain.GoodsReplyRatingVO">
+	<![CDATA[
+		SELECT g.goodsCode, 
+	 	g.goodsName, 
+	 	g.secondClassification, 
+	 	g.brand, 
+	 	g.goodsPrice,
+     	g.goodsStock,
+     	g.goodsDiscountRate,
+     	g.goodsDescription,
+     	g.goodsImage,
+     	g.goodsThumbnailImage,
+     	g.goodsAddedTime,
+		AVG(r.replyRating) AS avgReplyRating,
+		COUNT(r.replyNumber) AS countReply
+FROM goods g LEFT JOIN goods_reply r
+ON g.goodsName = r.goodsName
+WHERE firstClassification = #{firstClassification}
+GROUP BY goodsCode
+UNION
+SELECT  g.goodsCode, 
+	 	g.goodsName, 
+	 	g.secondClassification, 
+	 	g.brand, 
+	 	g.goodsPrice,
+     	g.goodsStock,
+     	g.goodsDiscountRate,
+     	g.goodsDescription,
+     	g.goodsImage,
+     	g.goodsThumbnailImage,
+     	g.goodsAddedTime,
+		AVG(r.replyRating) AS avgReplyRating,
+		COUNT(r.replyNumber) AS countReply
+FROM goods g RIGHT JOIN goods_reply r
+ON g.goodsName = r.goodsName
+WHERE firstClassification = #{firstClassification}
+GROUP BY goodsCode
+	]]>
+	</select>
+	<!-- 카트 리스트 -->
+	<select id="cartList"
+		resultType="com.spring.myapp.domain.CartListVO">
+		<![CDATA[
+	SELECT c.cartNumber,
+		 c.userid,
+		 c.goodsCode,
+		 c.goodsName,
+		 c.cartStock,
+		 c.cartAddedDate,
+		 g.firstClassification,
+		 g.secondClassification,
+		 g.brand,
+		 g.goodsPrice,
+		 g.goodsDiscountRate,
+		 g.goodsDescription,
+		 g.goodsImage,
+		 g.goodsThumbnailImage
+FROM cart c INNER JOIN member m INNER JOIN goods g
+WHERE c.userid = m.email AND c.goodsName = g.goodsName AND c.userid = #{userid}
+		]]>
+	</select>
+
+	<!-- 카트 삭제 -->
+	<delete id="deleteCart">
+	<![CDATA[
+		DELETE FROM cart WHERE cartNumber = #{cartNumber} AND
+		userid = #{userid}
+	]]>
+	</delete>
+
+	<!-- 카트 전부 삭제 -->
+	<delete id="deleteAllCart">
+	<![CDATA[
+		DELETE FROM cart WHERE userid = #{userid}
+	]]>	
+	</delete>
+
+	<!-- 카트 상품번호로 전부 삭제 -->
+	<delete id="deleteCartByGoodsCode">
+	<![CDATA[
+		DELETE FROM cart WHERE goodsCode = #{goodsCode}
+	]]>	
+	</delete>
+	
+	<!-- 주문 정보 -->
+	<insert id="addOrder">
+	<![CDATA[
+		INSERT INTO `order` (`orderId`, `userId`, `orderRecipient`, `phone`, `zipcode`, `address1`, `address2`, `amount`)
+VALUES (#{orderId}, #{userId}, #{orderRecipient}, #{phone}, #{zipcode}, #{address1}, #{address2}, #{amount})
+	]]>
+	</insert>
+
+	<!-- 상품 주문 정보 -->
+	<insert id="addOrderGoods">
+	<![CDATA[
+		INSERT INTO ordered_goods (orderId, goodsName, goodsCode, cartStock, goodsPrice, goodsThumbnailImage) 
+		VALUES (#{orderId}, #{goodsName}, #{goodsCode}, #{cartStock}, #{goodsPrice}, #{goodsThumbnailImage})
+	]]>
+	</insert>
+
+
+	<!-- 주문번호로 상품 가져오기 -->
+	<select id="getOrderItems"
+		resultType="com.spring.myapp.domain.OrderedGoodsVO">
+	<![CDATA[
+	SELECT *
+	FROM ordered_goods
+	WHERE orderId = #{orderId}
+	]]>
+	</select>
+
+
+	<!-- 유저아이디(이메일)로 상품 가져오기 -->
+	<select id="getOrderItemsByEmail"
+		resultType="com.spring.myapp.domain.OrderedGoodsVO">
+	<![CDATA[
+	SELECT g.orderId, g.goodsName, g.goodsCode, g.cartStock, g.goodsPrice, g.goodsThumbnailImage, g.orderStatus
+	FROM ordered_goods g INNER JOIN `order` o
+	ON g.orderId = o.orderId
+	WHERE userId = #{userId}
+
+	]]>
+	</select>
+	
+	<!-- 주문시 상품 수량 감소 -->
+	<update id="goodsStockDecrease">
+	<![CDATA[
+	UPDATE goods SET goodsStock = #{goodsStock} WHERE goodsCode = #{goodsCode}
+	]]>
+	</update>
+	
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMapper">
+
+	<!-- 상품 등록 -->
+	<insert id="register">
+<![CDATA[
+	 INSERT INTO goods (goodsCode, 
+	 	goodsName, 
+	 	firstClassification, 
+	 	secondClassification, 
+	 	brand, 
+	 	goodsPrice,
+     	goodsStock,
+     	goodsDiscountRate,
+     	goodsDescription,
+     	goodsImage,
+     	goodsThumbnailImage)
+     values (#{goodsCode},
+     	#{goodsName},
+     	#{firstClassification},
+     	#{secondClassification},
+     	#{brand},
+     	#{goodsPrice},
+     	#{goodsStock},
+     	#{goodsDiscountRate},
+     	#{goodsDescription},
+     	#{goodsImage},
+     	#{goodsThumbnailImage})
+ ]]>
+	</insert>
+
+	<!-- 상품 목록 -->
+	<select id="goodslist"
+		resultType="com.spring.myapp.domain.GoodsVO">
+<![CDATA[
+	SELECT goodsCode, 
+	 	goodsName, 
+	 	firstClassification, 
+	 	secondClassification, 
+	 	brand, 
+	 	goodsPrice,
+     	goodsStock,
+     	goodsDiscountRate,
+     	goodsDescription,
+     	goodsImage,
+     	goodsThumbnailImage,
+     	goodsAddedTime
+	FROM goods
+        ORDER by goodsCode DESC
+]]>
+	</select>
+
+	<!-- 상품 조회 -->
+	<select id="goodsView"
+		resultType="com.spring.myapp.domain.GoodsVO">
+ <![CDATA[
+	SELECT goodsCode, 
+	 	goodsName, 
+	 	firstClassification, 
+	 	secondClassification, 
+	 	brand, 
+	 	goodsPrice,
+     	goodsStock,
+     	goodsDiscountRate,
+     	goodsDescription,
+     	goodsImage,
+     	goodsThumbnailImage,
+     	goodsAddedTime
+	FROM goods WHERE goodsCode = #{goodsCode}
+]]>
+	</select>
+
+	<!-- 상품 수정 -->
+	<update id="goodsModify">
+	<![CDATA[
+	UPDATE goods 
+	 	SET goodsName = #{goodsName}, 
+	 		firstClassification = #{firstClassification}, 
+	 		secondClassification = #{secondClassification}, 
+	 		brand = #{brand},
+	 		goodsPrice = #{goodsPrice},
+     		goodsStock = #{goodsStock},
+     		goodsDiscountRate = #{goodsDiscountRate},
+     		goodsDescription = #{goodsDescription},
+     		goodsImage = #{goodsImage},
+     		goodsThumbnailImage = #{goodsThumbnailImage}
+	WHERE goodsCode = #{goodsCode}
+	]]>
+	</update>
+
+	<!-- 상품 삭제 -->
+	<delete id="goodsDelete">
+	<![CDATA[
+		DELETE FROM goods
+		WHERE goodsCode = #{goodsCode}
+	]]>
+	</delete>
+
+	<!-- 모든 댓글 가져오기 -->
+	<select id="goodsReply"
+		resultType="com.spring.myapp.domain.GoodsReplyVO">
+	<![CDATA[
+	SELECT * FROM goods_reply
+	]]>
+	</select>
+
+	<!-- 상품 주문 목록 -->
+	<select id="goodsOrderList"
+		resultType="com.spring.myapp.domain.GoodsOrderListVO">
+	<![CDATA[
+	SELECT g.orderId, g.goodsName, g.goodsCode, g.cartStock, g.goodsPrice, o.orderRecipient, o.phone, o.zipcode, o.address1, o.address2, g.orderStatus
+	FROM ordered_goods g INNER JOIN `order` o
+	ON g.orderId = o.orderId
+	]]>
+	</select>
+
+	<!-- 상품 주문 상태 변경 -->
+	<update id="goodsOrderModify">
+	<![CDATA[
+	UPDATE `ordered_goods` 
+	SET orderStatus = 2
+	WHERE orderId = #{orderId}
+	]]>
+	</update>
+
+	<!-- 유저 목록 -->
+	<select id="userList"
+		resultType="com.spring.myapp.domain.MemberVO">
+	<![CDATA[
+		SELECT * FROM member
+	]]>
+	</select>
+
+	<!-- 총 수익 -->
+	<select id="totalIncome" resultType="_int">
+	<![CDATA[
+	SELECT SUM(amount) FROM `order`
+	]]>
+	</select>
+
+
+	<!-- 회원 수 -->
+	<select id="memberSum" resultType="_int">
+	<![CDATA[
+	SELECT COUNT(*) FROM member
+	]]>
+	</select>
+
+	<!-- 상품 갯수 -->
+	<select id="goodsSum" resultType="_int">
+	<![CDATA[
+	SELECT COUNT(*) FROM goods
+	]]>
+	</select>
+
+	<!-- 댓글 갯수 -->
+	<select id="goodsReplySum" resultType="_int">
+	<![CDATA[
+	SELECT COUNT(*) FROM goods_reply
+	]]>
+	</select>
+
+	<!-- 그래프용 카테고리별 상품 갯수 -->
+	<select id="goodsTotalByClassification" resultType="_int">
+	<![CDATA[
+	SELECT COUNT(*) FROM goods WHERE firstClassification = #{firstClassification}
+	]]>
+	</select>
+	
+	
+	<!-- 그래프용 월별 총 수익 -->
+	<select id="goodsTotalIncomeByMonth" resultType="_int">
+	<![CDATA[
+	SELECT SUM(amount) FROM `order` WHERE `orderDate` BETWEEN '20222-12-01 00:00:01' AND '2022-12-31 23:59:59'
+	]]>
+	</select>
+	
+</mapper>

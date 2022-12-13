@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+
+	<!-- MariaDB JDBC DataSource -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="org.mariadb.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3307/mydb"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="0000"></property>
+    </bean>
+    
+ 	<!--  sqlsessionfactoryBean은 mariadb 설정기능을 사용하도록 세팅하고 mapperLocation 
+ 	즉 sql 문을 mybatis/sql 경로에 있는 xml파일로 한다고 명시합니다.
+	SqlSessionTemplate는 트랜잭션 관리와 쓰레드 처리, DB연결 및 종료를 관리하는 영역입니다. -->
+	
+   <!-- mybatis SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:/mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath:/mappers/**/*.xml" />
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+	
+	<!-- 패키지 -->
+	<context:component-scan base-package="com.spring.myapp.domain"></context:component-scan>
+	<context:component-scan base-package="com.spring.myapp.persistence"></context:component-scan>
+	<context:component-scan base-package="com.spring.myapp.service"></context:component-scan>
+	<context:component-scan base-package="com.spring.myapp.utils"></context:component-scan>
+
+</beans>

@@ -1,0 +1,42 @@
+.table-view {
+	margin-left: 200px;
+	margin-right: 200px;
+	margin-top: 50px;
+	margin-bottom: 400px;
+}
+
+/* admin list section */
+#myInput {
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	/*   width: 100%; */
+	font-size: 16px;
+	padding: 12px 20px 12px 40px;
+	border: 1px solid #ddd;
+	margin-bottom: 12px;
+	/* 	margin-left: 200px; */
+}
+
+.search-div {
+	margin-left: 200px;
+	margin-top: 50px;
+}
+
+.search-div select {
+	height: 50px;
+}
+
+.search-div input {
+	width: 40%;
+}
+
+@media screen and (max-width: 1500px) {
+	.table-view {
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	.search-div{
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="com.spring.myapp.domain.OrderVO" project="shopping-mall-website" 
+    file="/shopping-mall-website/src/main/java/com/spring/myapp/domain/OrderVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="639" width="172" x="125" y="-123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.spring.myapp.domain.CartListVO" project="shopping-mall-website" 
+    file="/shopping-mall-website/src/main/java/com/spring/myapp/domain/CartListVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="909" width="208" x="337" y="-123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.spring.myapp.domain.GoodsVO" project="shopping-mall-website" 
+    file="/shopping-mall-website/src/main/java/com/spring/myapp/domain/GoodsVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="801" width="208" x="585" y="-123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.spring.myapp.domain.MemberVO" project="shopping-mall-website" 
+    file="/shopping-mall-website/src/main/java/com/spring/myapp/domain/MemberVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="639" width="150" x="833" y="-123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.spring.myapp.domain.OrderedGoodsVO" project="shopping-mall-website" 
+    file="/shopping-mall-website/src/main/java/com/spring/myapp/domain/OrderedGoodsVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="531" width="208" x="1023" y="-123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.spring.myapp.domain.GoodsReplyListVO" project="shopping-mall-website" 
+    file="/shopping-mall-website/src/main/java/com/spring/myapp/domain/GoodsReplyListVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="585" width="164" x="1271" y="-123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.spring.myapp.domain.GoodsReplyVO" project="shopping-mall-website" 
+    file="/shopping-mall-website/src/main/java/com/spring/myapp/domain/GoodsReplyVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="531" width="164" x="1475" y="-123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.spring.myapp.domain.CartVO" project="shopping-mall-website" 
+    file="/shopping-mall-website/src/main/java/com/spring/myapp/domain/CartVO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="477" width="168" x="1679" y="-123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.spring.myapp.domain.GoodsOrderListVO" project="shopping-mall-website" 
+    file="/shopping-mall-website/src/main/java/com/spring/myapp/domain/GoodsOrderListVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="747" width="172" x="1887" y="-123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.spring.myapp.domain.GoodsReplyRatingVO" project="shopping-mall-website" 
+    file="/shopping-mall-website/src/main/java/com/spring/myapp/domain/GoodsReplyRatingVO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="909" width="208" x="2099" y="-123"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
